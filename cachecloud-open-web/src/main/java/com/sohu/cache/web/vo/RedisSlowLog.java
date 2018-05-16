@@ -1,5 +1,6 @@
 package com.sohu.cache.web.vo;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 
@@ -29,6 +30,9 @@ public class RedisSlowLog {
      * 执行日期时间
      */
     private Date date;
+
+    private Timestamp timestampt;
+
 
     public long getId() {
         return id;
@@ -68,6 +72,15 @@ public class RedisSlowLog {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+
+    public Timestamp getTimestampt() {
+        return timestampt;
+    }
+
+    public void setTimestampt(Timestamp timestampt) {
+        this.timestampt = timestampt;
     }
 
     @Override

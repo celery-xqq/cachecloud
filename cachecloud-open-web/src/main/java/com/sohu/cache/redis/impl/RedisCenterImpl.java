@@ -311,8 +311,10 @@ public class RedisCenterImpl implements RedisCenter {
         instanceSlowLog.setCommand(redisSlowLog.getCommand());
         instanceSlowLog.setCostTime((int) redisSlowLog.getExecutionTime());
         instanceSlowLog.setCreateTime(new Timestamp(System.currentTimeMillis()));
-        instanceSlowLog.setExecuteTime(new Timestamp(redisSlowLog.getDate().getTime()));
+//        instanceSlowLog.setExecuteTime(new Timestamp(redisSlowLog.getDate().getTime()));
+        instanceSlowLog.setExecuteTime(redisSlowLog.getTimestampt());
         instanceSlowLog.setInstanceId(instanceInfo.getId());
+
         instanceSlowLog.setIp(instanceInfo.getIp());
         instanceSlowLog.setPort(instanceInfo.getPort());
         instanceSlowLog.setSlowLogId(redisSlowLog.getId());
@@ -1228,13 +1230,14 @@ public class RedisCenterImpl implements RedisCenter {
                 slowlogs = jedis.slowlogGet();
             }
             if (slowlogs != null && slowlogs.size() > 0) {
-                for (Slowlog sl : slowlogs) {
+                for (Slowlog sl : slowlogs) {l
                     RedisSlowLog rs = new RedisSlowLog();
                     rs.setId(sl.getId());
                     rs.setExecutionTime(sl.getExecutionTime());
                     long time = sl.getTimeStamp() * 1000L;
                     rs.setDate(new Date(time));
-                    rs.setTimeStamp(DateUtil.formatYYYYMMddHHMMSS(new Date(time)));
+                    rs.setTimestampt(new Timestamp(time));
+//                    rs.setTimeStamp(DateUtil.formatYYYYMMddHHMMSS(new Date(time)));
                     rs.setCommand(StringUtils.join(sl.getArgs(), " "));
                     resultList.add(rs);
                 }
@@ -1830,7 +1833,6 @@ public class RedisCenterImpl implements RedisCenter {
 	/**
      * 0,4096 0-4096
      * 2,2 2-2
-     * @param slotInfo
      * @return
      */
 	private String getStartToEndSlotDistribute(int startSlot, int endSlot) {

@@ -7,14 +7,14 @@
                      http://www.springframework.org/schema/context
                      http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <context:property-placeholder location="classpath:application.properties"/>
+    <context:property-placeholder location="classpath:application.properties,file:/spec.properties"/>
 
     <!--cache data source-->
     <bean name="cacheCloudDB" class="com.mchange.v2.c3p0.ComboPooledDataSource">
         <property name="driverClass" value="${jdbc.driver}"/>
-        <property name="jdbcUrl" value="${cachecloud.db.url}"/>
-        <property name="user" value="${cachecloud.db.user}"/>
-        <property name="password" value="${cachecloud.db.password}"/>
+        <property name="jdbcUrl" value="${h3c.db.url}"/>
+        <property name="user" value="${h3c.db.user}"/>
+        <property name="password" value="${h3c.db.password}"/>
         <property name="initialPoolSize" value="10"/>
         <property name="maxPoolSize" value="${cachecloud.maxPoolSize}"/>
         <property name="testConnectionOnCheckin" value="false"/>
